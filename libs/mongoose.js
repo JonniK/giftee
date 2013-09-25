@@ -9,7 +9,8 @@ var mongoose    = require('mongoose');
 var log         = require('./log')(module);
 var config      = require('./config');
 
-mongoose.connect(config.get('mongoose:uri'));
+var mongoURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || config.get('mongoose:uri');
+mongoose.connect(mongoURI);
 var db = mongoose.connection;
 
 db.on('error', function (err) {
@@ -33,7 +34,7 @@ var AgeInterval = new Schema({
 });
 AgeInterval.methods.check = function(num) {
     return this.minAge <= num && num <= this.maxAge;
-}
+};
 var Label = new Schema({
     title: { type: String, required: true },
     gender: Boolean,
@@ -49,7 +50,7 @@ Label.methods.checkIntervals = function (num) {
         if(this.intervals[ind].check(num)) return true;
     }
     return false;
-}
+};
 
 /*
 // validation
