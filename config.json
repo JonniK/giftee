@@ -1,0 +1,6 @@
+{
+    "port" : 3000,
+    "mongoose": {
+        "uri": "mongodb://giftee:jonnik@paulo.mongohq.com:10065/giftee"
+    }
+}
